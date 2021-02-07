@@ -35,6 +35,10 @@ class Booster : public MovingObject
   void resetBooster();
   void stopBooster();
   void startBooster();
+  bool getStatus()
+  {
+    return booster_status;
+  }
 
 
 };

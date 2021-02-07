@@ -45,8 +45,8 @@ main_program {
   double bomb_ay = COIN_G*0.9;
   Bomb bomb(bomb_speed, bomb_angle_deg, bomb_ax, bomb_ay, paused, rtheta);
 
-  double booster_speed = COIN_SPEED*0.8;
-  double booster_angle_deg = COIN_ANGLE_DEG*1.1;
+  double booster_speed = COIN_SPEED*1.2;
+  double booster_angle_deg = COIN_ANGLE_DEG;
   double booster_ax = 0;
   double booster_ay = COIN_G*1.2;
   Booster booster(booster_speed, booster_angle_deg, booster_ax, booster_ay, paused, rtheta);
@@ -80,10 +80,6 @@ main_program {
     if((runTime > 0) && (currTime > runTime)) { break; }
 
 
-      if (coin.getlevel()>=2)
-      {
-            lasso.resetLassospeed();
-      }
     XEvent e;
     bool pendingEv = checkEvent(e);
     if(pendingEv) {
@@ -110,12 +106,12 @@ main_program {
       case ']':
 	if(lasso.isPaused()) { lasso.addAngle(+RELEASE_ANGLE_STEP_DEG); }
 	break;
-      case '-':
-	if(lasso.isPaused()) { if (coin.getlevel()<2) lasso.addSpeed(-RELEASE_SPEED_STEP); }
-	break;
-      case '=':
-	if(lasso.isPaused()) { if (coin.getlevel()<2) lasso.addSpeed(+RELEASE_SPEED_STEP); }
-	break;
+//      case '-':
+//	if(lasso.isPaused()) { if (coin.getlevel()<2) lasso.addSpeed(-RELEASE_SPEED_STEP); }
+//	break;
+//      case '=':
+//	if(lasso.isPaused()) { if (coin.getlevel()<2) lasso.addSpeed(+RELEASE_SPEED_STEP); }
+//	break;
       case 'q':
 	exit(0);
       default:
@@ -173,8 +169,8 @@ main_program {
     if (coin.getlevel()<2) bomb.stopBomb();
     else if (coin.getlevel()>=2) bomb.startBomb();
 
-    if (coin.getlevel()<2) booster.startBooster();
-    else if (coin.getlevel()>=2) booster.stopBooster();
+    if (coin.getlevel()>=1) booster.startBooster();
+    else if (coin.getlevel()<=0) booster.stopBooster();
 
     stepCount++;
     currTime += stepTime;

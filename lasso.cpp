@@ -60,7 +60,18 @@ void Lasso::yank() {
 
   if (the_booster != NULL)
   {
-    num_coins+=2;
+    if (the_booster->getStatus()) 
+    { 
+      num_coins+=2;
+      addSpeed(-RELEASE_SPEED_STEP);
+
+
+    }
+    else
+    {
+      if (num_coins>=2) num_coins-=2;
+      addSpeed(RELEASE_SPEED_STEP);
+    }
     the_booster->resetBooster();
     the_booster=NULL;
   }

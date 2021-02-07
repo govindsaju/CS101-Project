@@ -21,8 +21,11 @@ void Booster::resetBooster() {
   {
     double booster_speed = release_speed;
     double booster_angle_deg = release_angle_deg;
-    if (booster_status==true) booster_status = false;
-    else booster_status = true;
+    int t = rand()%2;
+    if (t==1) booster_status = true;
+    else booster_status = false;
+    if (booster_status==true) booster_circle.setColor(COLOR("blue"));
+    else booster_circle.setColor(COLOR("purple"));
     booster_ax = 0;
     booster_ay = COIN_G;
     bool paused = true, rtheta = true;
