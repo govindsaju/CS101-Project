@@ -1,5 +1,7 @@
 #include <simplecpp>
 #include <string>
+#include <fstream>
+#include <vector>
 #include "MovingObject.h"
 #include "lasso.h"
 #include "coin.h"
@@ -50,10 +52,8 @@ main_program {
   double booster_ax = 0;
   double booster_ay = COIN_G*1.2;
   Booster booster(booster_speed, booster_angle_deg, booster_ax, booster_ay, paused, rtheta);
-
-
-
-
+  
+  
   string msg("Cmd: _");
   char lev[256];
   Text charPressed(PLAY_X_START+50, PLAY_Y_HEIGHT+20, msg);
@@ -63,7 +63,11 @@ main_program {
   Text coinScore(PLAY_X_START+50, PLAY_Y_HEIGHT+50, coinScoreStr);
   Text level(PLAY_X_START+50, PLAY_Y_HEIGHT+80, lev);
 
-  
+  char live[256];
+  sprintf(live, "Liv: %d", coin.getlives());
+  Text lives(PLAY_X_START+600, PLAY_Y_HEIGHT-450, live);
+
+  int flag = 0;
 
   // After every COIN_GAP sec, make the coin jump
   double last_coin_jump_end = 0;
@@ -78,6 +82,8 @@ main_program {
 
   for(;;) {
     if((runTime > 0) && (currTime > runTime)) { break; }
+
+
 
 
     XEvent e;
@@ -151,6 +157,9 @@ main_program {
     sprintf(lev, "Lev: %d", coin.getlevel());
     level.setMessage(lev);
 
+      sprintf(live, "Liv: %d", coin.getlives());
+      lives.setMessage(live);
+
     if(coin.getYPos() > PLAY_Y_HEIGHT) {
       coin.resetCoin();
       last_coin_jump_end = currTime;
@@ -169,13 +178,30 @@ main_program {
     if (coin.getlevel()<2) bomb.stopBomb();
     else if (coin.getlevel()>=2) bomb.startBomb();
 
-    if (coin.getlevel()>=1) booster.startBooster();
-    else if (coin.getlevel()<=0) booster.stopBooster();
+    if (lasso.getLifeincr())
+    {
+          coin.incrlives();
+          lasso.resetLifeincr();
+    }
+
 
     stepCount++;
     currTime += stepTime;
     wait(stepTime);
+
+      if (coin.getlives()==0)
+      {
+      if (flag==1) break;
+      coin.stopCoin();
+      booster.stopBooster();
+      bomb.stopBomb();
+      flag=1;
+      continue;
+      }
+
+
+
   } // End for(;;)
 
-  wait(3);
+  getClick();
 } // End main_program

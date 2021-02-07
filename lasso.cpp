@@ -64,6 +64,7 @@ void Lasso::yank() {
     { 
       num_coins+=2;
       addSpeed(-RELEASE_SPEED_STEP);
+      lifeincr = true;    //this variable will be checked by main and reset to false by main after updating lives.
 
 
     }
@@ -152,3 +153,12 @@ void Lasso::check_for_booster(Booster *boosterPtr)
 }
 }// End Lasso::check_for_coin()
 
+/*
+void Lasso::hideLasso()
+{
+  lasso_line.hide();
+  lasso_circle.hide();
+  lasso_band.hide();
+  lasso_loop.hide();
+}
+*/

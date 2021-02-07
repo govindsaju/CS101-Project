@@ -27,7 +27,9 @@ class Booster : public MovingObject
     booster_ax = argax;
     booster_ay = argay;
     stopstatus =  false;
-    booster_status = true;
+    int t = rand()%2;
+    if (t==1) booster_status = true;
+    else booster_status = false;
     initBooster();
   }
 

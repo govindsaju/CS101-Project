@@ -26,6 +26,11 @@ void Coin::resetCoin() {
     coin_ax = COIN_AX;
     coin_ay = COIN_G;
     bool paused = true, rtheta = true;
+
+    if (coin_circle.getY()>PLAY_Y_HEIGHT) decrlives();
+
+
+
     startx();
     starty();
     reset_all(coin_start_x, coin_start_y, coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta);

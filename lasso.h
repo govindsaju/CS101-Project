@@ -56,6 +56,8 @@ class Lasso : public MovingObject {
   double lasso_ax;
   double lasso_ay;
 
+  bool lifeincr;
+
   // Moving parts
   Circle lasso_circle;
   Circle lasso_loop;
@@ -79,9 +81,11 @@ class Lasso : public MovingObject {
     release_angle_deg = angle_deg;
     lasso_ax = argax;
     lasso_ay = argay;
+    lifeincr = false;
     initLasso();
   }
 
+//  void hideLasso();
   void draw_lasso_band();
   void yank();
   void loopit();
@@ -104,6 +108,15 @@ class Lasso : public MovingObject {
     if (num_coins>0) num_coins--;
   }
 
+  void resetLifeincr()
+  {
+    lifeincr = false;
+  }
+
+  bool getLifeincr()
+  {
+    return lifeincr;
+  }
 }; // End class Lasso
 
 #endif

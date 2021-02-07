@@ -8,7 +8,11 @@ void Booster::initBooster()
     booster_start_x = (PLAY_X_START+WINDOW_X)/2;
     booster_start_y = PLAY_Y_HEIGHT;
     booster_circle.reset(booster_start_x, booster_start_y, COIN_SIZE);
+    if (booster_status) 
     booster_circle.setColor(COLOR("blue"));
+    else
+    booster_circle.setColor(COLOR("purple"));
+    
     booster_circle.setFill(true);
     addPart(&booster_circle);
   }
