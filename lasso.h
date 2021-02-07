@@ -50,6 +50,7 @@ class Lasso : public MovingObject {
   double lasso_start_x;
   double lasso_start_y;
   double release_speed;
+  double default_speed;
   double release_angle_deg;
   double lasso_ax;
   double lasso_ay;
@@ -72,6 +73,7 @@ class Lasso : public MovingObject {
  public:
  Lasso(double speed, double angle_deg, double argax, double argay, bool argpaused, bool rtheta) : MovingObject(speed, angle_deg, argax, argay, argpaused, rtheta) {
     release_speed = speed;
+    default_speed = speed;
     release_angle_deg = angle_deg;
     lasso_ax = argax;
     lasso_ay = argay;
@@ -83,6 +85,10 @@ class Lasso : public MovingObject {
   void loopit();
   void addAngle(double angle_deg);
   void addSpeed(double speed);
+  void resetLassospeed()
+  {
+    release_speed = default_speed;
+  }
 
 
   void nextStep(double t);

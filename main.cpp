@@ -70,6 +70,11 @@ main_program {
   for(;;) {
     if((runTime > 0) && (currTime > runTime)) { break; }
 
+
+      if (coin.getlevel()>=2)
+      {
+            lasso.resetLassospeed();
+      }
     XEvent e;
     bool pendingEv = checkEvent(e);
     if(pendingEv) {
@@ -96,10 +101,10 @@ main_program {
 	if(lasso.isPaused()) { lasso.addAngle(+RELEASE_ANGLE_STEP_DEG); }
 	break;
       case '-':
-	if(lasso.isPaused()) { lasso.addSpeed(-RELEASE_SPEED_STEP); }
+	if(lasso.isPaused()) { if (coin.getlevel()<2) lasso.addSpeed(-RELEASE_SPEED_STEP); }
 	break;
       case '=':
-	if(lasso.isPaused()) { lasso.addSpeed(+RELEASE_SPEED_STEP); }
+	if(lasso.isPaused()) { if (coin.getlevel()<2) lasso.addSpeed(+RELEASE_SPEED_STEP); }
 	break;
       case 'q':
 	exit(0);
