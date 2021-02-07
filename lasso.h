@@ -4,6 +4,7 @@
 #include "MovingObject.h"
 #include "coin.h"
 #include "bomb.h"
+#include "booster.h"
 
 //#define WINDOW_X 1200
 //#define WINDOW_Y 960
@@ -67,6 +68,7 @@ class Lasso : public MovingObject {
   bool lasso_looped;
   Coin *the_coin;
   Bomb *the_bomb;
+  Booster *the_booster;
   int num_coins;
 
   void initLasso();
@@ -94,6 +96,7 @@ class Lasso : public MovingObject {
   void nextStep(double t);
   void check_for_coin(Coin *coin);
   void check_for_bomb(Bomb *bomb);
+  void check_for_booster(Booster *booster);
   int getNumCoins() { return num_coins; }
 
   void decr_coins()

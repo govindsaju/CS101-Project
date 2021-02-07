@@ -29,6 +29,7 @@ void Lasso::initLasso() {
   lasso_looped = false;
   the_coin = NULL;
   the_bomb = NULL;
+  the_booster = NULL;
   num_coins = 0;
 
   lasso_line.reset(lasso_start_x, lasso_start_y, lasso_start_x, lasso_start_y);
@@ -55,6 +56,13 @@ void Lasso::yank() {
     decr_coins();
     the_bomb->resetBomb();
     the_bomb=NULL;
+  }
+
+  if (the_booster != NULL)
+  {
+    num_coins+=2;
+    the_booster->resetBooster();
+    the_booster=NULL;
   }
 } // End Lasso::yank()
 
@@ -113,8 +121,23 @@ void Lasso::check_for_bomb(Bomb *bombPtr)
   double distance = sqrt((xdiff*xdiff)+(ydiff*ydiff));
   if(distance <= LASSO_RADIUS) {
     the_bomb = bombPtr;
-    the_bomb->getAttachedTo(this);  
+    the_bomb->getAttachedTo(this); 
+  } 
 
 }
-} // End Lasso::check_for_coin()
+
+void Lasso::check_for_booster(Booster *boosterPtr)
+{
+    double lasso_x = getXPos();
+  double lasso_y = getYPos();
+  double booster_x = boosterPtr->getXPos();
+  double booster_y = boosterPtr->getYPos();
+  double xdiff = (lasso_x - booster_x);
+  double ydiff = (lasso_y - booster_y);
+  double distance = sqrt((xdiff*xdiff)+(ydiff*ydiff));
+  if(distance <= LASSO_RADIUS) {
+    the_booster = boosterPtr;
+    the_booster->getAttachedTo(this);  
+}
+}// End Lasso::check_for_coin()
 

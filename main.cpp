@@ -4,6 +4,7 @@
 #include "lasso.h"
 #include "coin.h"
 #include "bomb.h"
+#include "booster.h"
 
 using namespace simplecpp;
 
@@ -44,6 +45,13 @@ main_program {
   double bomb_ay = COIN_G*0.9;
   Bomb bomb(bomb_speed, bomb_angle_deg, bomb_ax, bomb_ay, paused, rtheta);
 
+  double booster_speed = COIN_SPEED*0.8;
+  double booster_angle_deg = COIN_ANGLE_DEG*1.1;
+  double booster_ax = 0;
+  double booster_ay = COIN_G*1.2;
+  Booster booster(booster_speed, booster_angle_deg, booster_ax, booster_ay, paused, rtheta);
+
+
 
 
   string msg("Cmd: _");
@@ -60,6 +68,7 @@ main_program {
   // After every COIN_GAP sec, make the coin jump
   double last_coin_jump_end = 0;
   double last_bomb_jump_end = 0;
+  double last_booster_jump_end = 0;
 
   // When t is pressed, throw lasso
   // If lasso within range, make coin stick
@@ -92,6 +101,7 @@ main_program {
 	lasso.loopit();
 	lasso.check_for_coin(&coin);
       lasso.check_for_bomb(&bomb);
+      lasso.check_for_booster(&booster);
 	wait(STEP_TIME*5);
 	break;
       case '[':
@@ -129,6 +139,14 @@ main_program {
       }
     }
 
+    booster.nextStep(stepTime);
+    if (booster.isPaused()){
+      if((currTime-last_booster_jump_end) >= COIN_GAP)
+      {
+        booster.unpause();
+      }
+
+    }
     
 
     sprintf(coinScoreStr, "Coins: %d", lasso.getNumCoins());
@@ -147,8 +165,16 @@ main_program {
       last_bomb_jump_end = currTime;
     }
 
+    if (booster.getYPos()>PLAY_Y_HEIGHT)
+    {
+          booster.resetBooster();
+          last_booster_jump_end = currTime;
+    }
     if (coin.getlevel()<2) bomb.stopBomb();
     else if (coin.getlevel()>=2) bomb.startBomb();
+
+    if (coin.getlevel()<2) booster.startBooster();
+    else if (coin.getlevel()>=2) booster.stopBooster();
 
     stepCount++;
     currTime += stepTime;
