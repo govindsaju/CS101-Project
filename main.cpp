@@ -52,6 +52,8 @@ main_program {
   double booster_ax = 0;
   double booster_ay = COIN_G*1.2;
   Booster booster(booster_speed, booster_angle_deg, booster_ax, booster_ay, paused, rtheta);
+
+
   
   
   string msg("Cmd: _");
@@ -66,6 +68,18 @@ main_program {
   char live[256];
   sprintf(live, "Liv: %d", coin.getlives());
   Text lives(PLAY_X_START+600, PLAY_Y_HEIGHT-450, live);
+
+    //to retrieve the current high score
+  ifstream inp("highscore.txt");
+  int best_score;
+  inp >> best_score;
+  char high_score[256];
+  sprintf(high_score, "High: %d",best_score);
+  Text highdisp(PLAY_X_START+600, PLAY_Y_HEIGHT-470, high_score);
+  inp.close();
+
+
+
 
   int flag = 0;
 
@@ -202,6 +216,16 @@ main_program {
 
 
   } // End for(;;)
+  Text newhigh(250,250,"");
+  
+  if (lasso.getNumCoins()>best_score)
+  {   ofstream outp("highscore.txt");
+      outp<<lasso.getNumCoins();
+      sprintf(high_score, "High: %d",lasso.getNumCoins());
+      highdisp.setMessage(high_score);
+      newhigh.setMessage("New High Score Achieved!!");
+      outp.close();
+  }
 
 
 
