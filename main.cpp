@@ -203,5 +203,7 @@ main_program {
 
   } // End for(;;)
 
-  getClick();
+
+
+ getClick();
 } // End main_program

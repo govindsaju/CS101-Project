@@ -16,9 +16,10 @@ void Booster::initBooster()
     booster_circle.setFill(true);
     addPart(&booster_circle);
   }
-
-  
+ 
 }
+
+//end of initBooster
 
 void Booster::resetBooster() {
   if (stopstatus==false)
@@ -33,9 +34,12 @@ void Booster::resetBooster() {
     booster_ax = 0;
     booster_ay = COIN_G;
     bool paused = true, rtheta = true;
+    startx();             //to randomly pick x coordinate
+    starty();             //to randomly pick y coordinate
     reset_all(booster_start_x, booster_start_y, booster_speed, booster_angle_deg, booster_ax, booster_ay, paused, rtheta);
   }
 }
+//end of resetBooster
 
 void Booster::stopBooster()
 {
@@ -43,6 +47,7 @@ void Booster::stopBooster()
   release_speed = 0;
   booster_circle.hide();
 }
+//end of stopBooster
 
 void Booster::startBooster()
 {
@@ -50,3 +55,23 @@ void Booster::startBooster()
   release_speed = default_speed;
   booster_circle.show();
 }
+//end of startBooster
+
+bool Booster::getStatus()
+{
+  return booster_status;
+}
+//end of getStatus
+
+void Booster::startx()
+{
+  booster_start_x= PLAY_X_START+rand()%(WINDOW_X-PLAY_X_START);     //starts from a random point
+}
+//end of startx
+
+void Booster::starty()
+{ 
+  
+  booster_start_y = ((PLAY_Y_HEIGHT) - rand()%(PLAY_Y_HEIGHT/5));   //starts from a random point
+}
+//end of starty

@@ -140,7 +140,7 @@ void Lasso::check_for_bomb(Bomb *bombPtr)
 
 void Lasso::check_for_booster(Booster *boosterPtr)
 {
-    double lasso_x = getXPos();
+  double lasso_x = getXPos();
   double lasso_y = getYPos();
   double booster_x = boosterPtr->getXPos();
   double booster_y = boosterPtr->getYPos();
@@ -153,12 +153,3 @@ void Lasso::check_for_booster(Booster *boosterPtr)
 }
 }// End Lasso::check_for_coin()
 
-/*
-void Lasso::hideLasso()
-{
-  lasso_line.hide();
-  lasso_circle.hide();
-  lasso_band.hide();
-  lasso_loop.hide();
-}
-*/
