@@ -28,11 +28,14 @@ main_program {
   bool rtheta = true;
   Lasso lasso(release_speed, release_angle_deg, lasso_ax, lasso_ay, paused, rtheta);
 
+  //drawing x and y axes
+
   Line b1(0, PLAY_Y_HEIGHT, WINDOW_X, PLAY_Y_HEIGHT);
   b1.setColor(COLOR("blue"));
   Line b2(PLAY_X_START, 0, PLAY_X_START, WINDOW_Y);
   b2.setColor(COLOR("blue"));
 
+  //initialising coin
   paused = true; rtheta = true;
   double coin_speed = COIN_SPEED;
   double coin_angle_deg = COIN_ANGLE_DEG;
@@ -40,13 +43,14 @@ main_program {
   double coin_ay = COIN_G;
   Coin coin(coin_speed, coin_angle_deg, coin_ax, coin_ay, paused, rtheta);  
 
-  
+  //initialising bomb
   double bomb_speed = COIN_SPEED*1.5;
   double bomb_angle_deg = COIN_ANGLE_DEG*1.2;
   double bomb_ax = 0;
   double bomb_ay = COIN_G*0.9;
   Bomb bomb(bomb_speed, bomb_angle_deg, bomb_ax, bomb_ay, paused, rtheta);
 
+  //initialising booster
   double booster_speed = COIN_SPEED*1.2;
   double booster_angle_deg = COIN_ANGLE_DEG;
   double booster_ax = 0;
@@ -54,7 +58,7 @@ main_program {
   Booster booster(booster_speed, booster_angle_deg, booster_ax, booster_ay, paused, rtheta);
 
 
-  
+  //obtaining and processing the data to be shown on screen
   
   string msg("Cmd: _");
   char lev[256];
@@ -69,7 +73,7 @@ main_program {
   sprintf(live, "Liv: %d", coin.getlives());
   Text lives(PLAY_X_START+600, PLAY_Y_HEIGHT-450, live);
 
-    //to retrieve the current high score
+  //to retrieve the current high score from the file highscore.txt
   ifstream inp("highscore.txt");
   int best_score;
   inp >> best_score;
@@ -80,10 +84,10 @@ main_program {
 
 
 
-
+  //this is a variable used to get the loop to run once more after the lives become 0
   int flag = 0;
 
-  // After every COIN_GAP sec, make the coin jump
+  // After every COIN_GAP sec, make the coin,bomb and booster jump
   double last_coin_jump_end = 0;
   double last_bomb_jump_end = 0;
   double last_booster_jump_end = 0;
@@ -98,7 +102,7 @@ main_program {
     if((runTime > 0) && (currTime > runTime)) { break; }
 
 
-
+    //this checks if there is any input from the user and if yes, takes the corresponding action
 
     XEvent e;
     bool pendingEv = checkEvent(e);
@@ -126,12 +130,6 @@ main_program {
       case ']':
 	if(lasso.isPaused()) { lasso.addAngle(+RELEASE_ANGLE_STEP_DEG); }
 	break;
-//      case '-':
-//	if(lasso.isPaused()) { if (coin.getlevel()<2) lasso.addSpeed(-RELEASE_SPEED_STEP); }
-//	break;
-//      case '=':
-//	if(lasso.isPaused()) { if (coin.getlevel()<2) lasso.addSpeed(+RELEASE_SPEED_STEP); }
-//	break;
       case 'q':
 	exit(0);
       default:
@@ -163,7 +161,7 @@ main_program {
       }
 
     }
-    
+    //updating the score and level on the display screen
 
     sprintf(coinScoreStr, "Coins: %d", lasso.getNumCoins());
     coinScore.setMessage(coinScoreStr);
@@ -171,8 +169,10 @@ main_program {
     sprintf(lev, "Lev: %d", coin.getlevel());
     level.setMessage(lev);
 
-      sprintf(live, "Liv: %d", coin.getlives());
-      lives.setMessage(live);
+    sprintf(live, "Liv: %d", coin.getlives());
+    lives.setMessage(live);
+
+    //if any of the objects go below y axis, they are reset
 
     if(coin.getYPos() > PLAY_Y_HEIGHT) {
       coin.resetCoin();
@@ -189,9 +189,15 @@ main_program {
           booster.resetBooster();
           last_booster_jump_end = currTime;
     }
+
+    //if level is 2 or more, bomb is activated
     if (coin.getlevel()<2) bomb.stopBomb();
     else if (coin.getlevel()>=2) bomb.startBomb();
 
+    /*
+    Here the lives are updated. The number of lives is a part of the coin class, while whether to increment or not is a part of the lasso class.
+    Hence, data is taken from lasso and updated in coin.
+    */
     if (lasso.getLifeincr())
     {
           coin.incrlives();
@@ -216,7 +222,9 @@ main_program {
 
 
   } // End for(;;)
-  Text newhigh(250,250,"");
+  Text newhigh(380,250,"");
+
+  //in the event of highscore being beaten, then we are updating the score and telling user that high score has been beaten
   
   if (lasso.getNumCoins()>best_score)
   {   ofstream outp("highscore.txt");
