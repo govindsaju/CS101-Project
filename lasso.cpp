@@ -153,3 +153,18 @@ void Lasso::check_for_booster(Booster *boosterPtr)
 }
 }// End Lasso::check_for_coin()
 
+
+void Lasso::decr_coins()
+{
+  if (num_coins>0) num_coins--;
+}
+
+void Lasso::resetLifeincr()
+{
+  lifeincr = false;
+}
+
+bool Lasso::getLifeincr()
+{
+  return lifeincr;
+}

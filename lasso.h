@@ -36,7 +36,7 @@
 #define INIT_RELEASE_SPEED 100
 
 #define COIN_SPEED 120
-#define COIN_ANGLE_DEG 115          //release angle changed on 13/1 to get parabolic trajectory
+#define COIN_ANGLE_DEG 115          
 
 #define LASSO_G 30
 #define COIN_G 30
@@ -103,20 +103,14 @@ class Lasso : public MovingObject {
   void check_for_booster(Booster *booster);
   int getNumCoins() { return num_coins; }
 
-  void decr_coins()
-  {
-    if (num_coins>0) num_coins--;
-  }
+  void decr_coins();
 
-  void resetLifeincr()
-  {
-    lifeincr = false;
-  }
 
-  bool getLifeincr()
-  {
-    return lifeincr;
-  }
+  void resetLifeincr();
+
+
+  bool getLifeincr();
+
 }; // End class Lasso
 
 #endif
