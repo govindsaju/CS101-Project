@@ -2,7 +2,7 @@
 #define __COIN_H__
 
 #include "MovingObject.h"
-#define MAX_LIVES 3
+#define MAX_LIVES 2
 
 class Coin : public MovingObject {
   double coin_start_x;                              //starting coordinates

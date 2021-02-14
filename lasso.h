@@ -45,7 +45,7 @@
 
 #define LASSO_SIZE 10
 #define LASSO_RADIUS 50
-#define COIN_SIZE 5
+#define COIN_SIZE 7
 
 class Lasso : public MovingObject {
   double lasso_start_x;

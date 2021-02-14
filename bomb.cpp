@@ -6,7 +6,7 @@ void Bomb::initBomb() {
   {
     bomb_start_x = (PLAY_X_START+WINDOW_X)/2;
     bomb_start_y = PLAY_Y_HEIGHT;
-    bomb_circle.reset(bomb_start_x, bomb_start_y, COIN_SIZE);
+    bomb_circle.reset(bomb_start_x, bomb_start_y, COIN_SIZE*1.2);
     bomb_circle.setColor(COLOR("red"));
     bomb_circle.setFill(true);
     addPart(&bomb_circle);
