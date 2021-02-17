@@ -39,7 +39,8 @@ void Coin::resetCoin() {
 void Coin::startx()
 {
   if (coin_level==0) coin_start_x=(PLAY_X_START+WINDOW_X)/2;          //for level 0, starting location is from a fixed point
-  else coin_start_x= PLAY_X_START+100+rand()%(WINDOW_X-PLAY_X_START-100);     //for level 1 and above, coin is launched from a random point
+  else if (coin_level<3) coin_start_x= PLAY_X_START+100+rand()%(WINDOW_X-PLAY_X_START-100);
+  else coin_start_x = PLAY_X_START+rand()%(WINDOW_X-PLAY_X_START-100);
 }
 //end of startx
 
