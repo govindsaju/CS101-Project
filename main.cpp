@@ -219,9 +219,22 @@ main_program {
       continue;
       }
 
+      //update high score if score crosses current high score
+      if (lasso.getNumCoins()>best_score)
+      {
+          sprintf(high_score, "High: %d",lasso.getNumCoins());
+          highdisp.setMessage(high_score);
+      }
+      else 
+      {
+            sprintf(high_score,"High: %d",best_score);
+            highdisp.setMessage(high_score);
+      }
+
 
 
   } // End for(;;)
+
   Text newhigh(380,250,"");
 
   //in the event of highscore being beaten, then we are updating the score and telling user that high score has been beaten
