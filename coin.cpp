@@ -7,7 +7,7 @@ void Coin::initCoin() {
   {
     coin_start_x = (PLAY_X_START+WINDOW_X)/2;
     coin_start_y = PLAY_Y_HEIGHT;
-    
+    coin_level = 0;
     coin_circle.reset(coin_start_x, coin_start_y, COIN_SIZE);
     coin_circle.setColor(COLOR("gold"));
     coin_circle.setFill(true);

@@ -231,8 +231,12 @@ main_program {
       outp<<lasso.getNumCoins();
       sprintf(high_score, "High: %d",lasso.getNumCoins());
       highdisp.setMessage(high_score);
-      newhigh.setMessage("New High Score Achieved!!");
+      newhigh.setMessage("NEW HIGH SCORE!!");
       outp.close();
+  }
+  else 
+  {
+      newhigh.setMessage("GAME OVER!");
   }
 
 
