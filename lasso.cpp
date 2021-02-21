@@ -120,7 +120,7 @@ void Lasso::check_for_coin(Coin *coinPtr) {
     the_coin = coinPtr;
     the_coin->getAttachedTo(this);    
   }
-}
+} //End Lasso::check_for_coin
 
 void Lasso::check_for_bomb(Bomb *bombPtr)
 {
@@ -136,7 +136,7 @@ void Lasso::check_for_bomb(Bomb *bombPtr)
     the_bomb->getAttachedTo(this); 
   } 
 
-}
+} //End Lasso::check_for_bomb
 
 void Lasso::check_for_booster(Booster *boosterPtr)
 {
@@ -151,7 +151,7 @@ void Lasso::check_for_booster(Booster *boosterPtr)
     the_booster = boosterPtr;
     the_booster->getAttachedTo(this);  
 }
-}// End Lasso::check_for_coin()
+}// End Lasso::check_for_booster
 
 
 void Lasso::decr_coins()
@@ -167,4 +167,9 @@ void Lasso::resetLifeincr()
 bool Lasso::getLifeincr()
 {
   return lifeincr;
+}
+
+void Lasso::resetLassospeed()
+{
+  release_speed = default_speed;
 }

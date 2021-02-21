@@ -85,31 +85,31 @@ class Lasso : public MovingObject {
     initLasso();
   }
 
-//  void hideLasso();
-  void draw_lasso_band();
-  void yank();
-  void loopit();
-  void addAngle(double angle_deg);
-  void addSpeed(double speed);
-  void resetLassospeed()
-  {
-    release_speed = default_speed;
-  }
+
+  void draw_lasso_band();                                   //to draw lasso
+  void yank();                                              //to yank lasso
+  void loopit();                                            //to loop the lasso
+  void addAngle(double angle_deg);                          //to increase angle of launch to lasso
+  void addSpeed(double speed);                              //to decrease angle of launch of lasso
+  void resetLassospeed();                                   //to reset lasso speed back to normal
 
 
-  void nextStep(double t);
+
+  void nextStep(double t);                                  
+
+  
+  //to check whether coins, bombs, or boosters have been caught
+
   void check_for_coin(Coin *coin);
   void check_for_bomb(Bomb *bomb);
   void check_for_booster(Booster *booster);
-  int getNumCoins() { return num_coins; }
-
-  void decr_coins();
 
 
-  void resetLifeincr();
+  int getNumCoins() { return num_coins; }                   //returns number of coins
+  void decr_coins();                                        //decreases coins by 1 after if number of coins is more than 0
+  void resetLifeincr();                                     //to reset lifeincr status to false after incrementing lives
+  bool getLifeincr();                                       //to check whether lives are to be incremented or not based on whether booster is collected
 
-
-  bool getLifeincr();
 
 }; // End class Lasso
 
